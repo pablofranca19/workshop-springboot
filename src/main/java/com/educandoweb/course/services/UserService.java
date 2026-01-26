@@ -7,13 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.educandoweb.course.entities.User;
+import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.course.repositories.UserRepository;
 
 @Service
 public class UserService {
+
+    private final CategoryRepository categoryRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
+
+    UserService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 	
 	public List <User> findAll () {
 		return userRepository.findAll();
@@ -31,4 +38,17 @@ public class UserService {
 	public void delete (Long id) {
 		userRepository.deleteById(id);
 	}
+	
+	public User update (Long id, User user) {
+		User entity = userRepository.getReferenceById(id);
+		updateData(entity, user);
+		return userRepository.save(entity);
+	}
+	
+	public void updateData (User entity, User user) {
+		entity.setName(user.getName());
+		entity.setEmail(user.getEmail());
+		entity.setPhone(user.getPhone());
+	}
+	
 }
