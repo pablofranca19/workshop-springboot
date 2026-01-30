@@ -12,7 +12,7 @@ import com.educandoweb.course.resources.exceptions.StandardError;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
-public class ResouceExceptionHandler {
+public class ResourceExceptionHandler {
 
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<StandardError> exceptionHandler (ResourceNotFoundException e, HttpServletRequest quest) {
