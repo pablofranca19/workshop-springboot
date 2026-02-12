@@ -9,7 +9,7 @@ This repository was made in order to practice and learn a little bit more about 
 * Java 17
 * Maven 4.0
 * Spring Boot 3.4.5
-* PostgreSQL 18
+* PostgreSQL 13.1
 * JPA/Hibernate
 ## Files
 ### On this section, take a deeper focus on these two files:
@@ -27,41 +27,42 @@ This repository was made in order to practice and learn a little bit more about 
 
 - src/main/java/com/educandoweb/course/**config**: configuration class, database seeding
 - src/main/java/com/educandoweb/course/**entities**: the entities of the workshops and its relationships with other objects
+- src/main/java/com/educandoweb/course/entities/**dtos**: DTO layer to ensure that the data is secured and it not shall be exposed through client-server responses
+- - src/main/java/com/educandoweb/course/entities/**mappers**: Mapping package for the DTO layer.
 - src/main/java/com/educandoweb/course/**repositories**: JPA repositories for data persistence
 - src/main/java/com/educandoweb/course/**resources**: endpoints classes for each entity
 - src/main/java/com/educandoweb/course/**service**: service layer with business rules for the application
-
 ## How to run the project
 ### Pre-requisites
 #### Before running the application, ensure the following:
 
-* Java Development Kit (JDK) version 17 is installed and properly configured in your system's PATH.
-* You are using git terminal (if you're using Windows), if Linux, the terminal itself works perfectly.
-* You are in the project's root directory in your bash terminal
+** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
+
+### Installation & Run
 
 ```bash
-# Make a folder to store the project
-mkdir spring-project
-```
-```bash
-# Inside the folder, clone the project
-git clone git@github.com:pablofranca19/workshop-springboot.git
+# CLone the repository
+git@github.com:pablofranca19/workshop-springboot.git
 ```
 ```bash
 # Change the directory to workshop-springboot
-cd workshop-springboot
+cd workshop-springboot/
 ```
 ```bash
-# As you are in the project's path, you now may execute
-./mvnw spring-boot:run
+# As you are in the project's path, build the project
+./mvnw clean package -DskipTests
 ```
 ```bash
-# If the terminal displays e.g "command not found" give a shot on this on the bash whether you are using Linux or Git terminal
+# If the terminal displays e.g "command not found",  give a shot on this on the bash whether you are using Linux or Git terminal
 chmod +x mvnw
 ```
 ```bash
-# And then run it again
-./mvnw spring-boot:run
+# Launch with docker compose
+docker compose up --build
+```
+```bash
+# You may now access the project on the web or API tester
+http://localhost:8080/users
 ```
 ## Endpoints
 ### For this section, I recommend you installing Bruno or Postman to test all the endpoints of the project
@@ -72,6 +73,12 @@ chmod +x mvnw
 * **/orders/{id}**: Returns any orders related to any user by id
 * **/categories/{id}**: List categories of products by product id
 * **/products/{id}**: List which products are stored by id
+
+### Response example for /users
+
+<img width="546" height="369" alt="httpGetResponse" src="https://github.com/user-attachments/assets/b188bef3-14b2-4d94-a392-090373ec0b3c" />
+
+
 
 ###### Atention: for POST and PUT parameters, make sure to place the JSON body of the request in "Body" section of your API tester
 ###### For DELETE, don't forget that the database maintains the integrity of the data, so delete first any entity related to the entity id
