@@ -2,6 +2,7 @@ package com.educandoweb.course.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.educandoweb.course.entities.User;
+import com.educandoweb.course.entities.dtos.UserDTO;
+import com.educandoweb.course.entities.dtos.mappers.UserMapper;
 import com.educandoweb.course.services.UserService;
 
 @RestController
@@ -25,23 +28,28 @@ public class UserResource {
 	@Autowired
 	private UserService userService;
 	
+	
     @GetMapping
-    private ResponseEntity<List<User>> findAll() {
+    private ResponseEntity<List<UserDTO>> findAll() {
       List <User> userList = userService.findAll();
-        return ResponseEntity.ok().body(userList);
+      List<UserDTO> userDtoList = userList.stream().map(UserMapper::toDTO).collect(Collectors.toList());
+        return ResponseEntity.ok().body(userDtoList);
     }
     
     @GetMapping(value = "/{id}")
-    private ResponseEntity<User> findById (@PathVariable Long id) {
+    private ResponseEntity<UserDTO> findById (@PathVariable Long id) {
     	User obj = userService.findById(id);
-    	return ResponseEntity.ok().body(obj);
+    	UserDTO dto = UserMapper.toDTO(obj);
+    	return ResponseEntity.ok().body(dto);
     }
     
     @PostMapping
-    public ResponseEntity<User> insert (@RequestBody User user) {
+    public ResponseEntity<UserDTO> insert (@RequestBody UserDTO userDTO) {
+    	User user = UserMapper.toUser(userDTO);
     	userService.insert(user);
-    	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-    	return ResponseEntity.created(uri).body(user);
+    	UserDTO response = UserMapper.toDTO(user);
+    	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(response.getId()).toUri();
+    	return ResponseEntity.created(uri).body(response);
     }
     
     @DeleteMapping(value = "/{id}")
@@ -51,9 +59,11 @@ public class UserResource {
     }
     
     @PutMapping(value = "/{id}")
-    public ResponseEntity<User> update (@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<UserDTO> update (@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    	User user = UserMapper.toUser(userDTO);
     	user = userService.update(id, user);
-    	return ResponseEntity.ok().body(user);
+    	UserDTO responsePut = UserMapper.toDTO(user);
+    	return ResponseEntity.ok().body(responsePut);
     }
     
  }
