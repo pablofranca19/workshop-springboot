@@ -11,6 +11,7 @@ This repository was made in order to practice and learn a little bit more about 
 * Spring Boot 3.4.5
 * PostgreSQL 13.1
 * JPA/Hibernate
+* Docker
 ## Files
 ### On this section, take a deeper focus on these two files:
 * src
@@ -78,20 +79,8 @@ http://localhost:8080/users
 
 <img width="546" height="369" alt="httpGetResponse" src="https://github.com/user-attachments/assets/b188bef3-14b2-4d94-a392-090373ec0b3c" />
 
-
-
 ###### Atention: for POST and PUT parameters, make sure to place the JSON body of the request in "Body" section of your API tester
 ###### For DELETE, don't forget that the database maintains the integrity of the data, so delete first any entity related to the entity id
-
-## H2 Database
-### This project works on a memory database called H2, I suggest you using it than trying to connect with any relational database because it is easier to connect
-* To do that, click on this link: https://localhost:8080/h2-console
-#### On your screen, it'll be shown this:
-<img width="481" height="337" alt="h2-console image" src="https://github.com/user-attachments/assets/40d556fd-d494-4228-8ed7-e2019e7eb09f" />
-
-#### Type the same information shown in the picture on the boxes in your h2 console, and then click "Connect"
-
-* You can now see all the tables and schemas present in the project's database, and also view its attributes better by just selecting any of the TB_EXAMPLE and then pressing "Run" button box
 
 ## Special thanks
 I owe this thanks to https://www.youtube.com/devsuperior for teaching me the basics of Spring Boot framework and understanding the HTTP protocol and its responses, this is my first "big" project, and I hope I leveling up even more on Java ☕🚀
