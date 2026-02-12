@@ -81,6 +81,9 @@ http://localhost:8080/users
 
 ###### Atention: for POST and PUT parameters, make sure to place the JSON body of the request in "Body" section of your API tester
 ###### For DELETE, don't forget that the database maintains the integrity of the data, so delete first any entity related to the entity id
-
+```bash
+# To shut down the application, run this on the project's root:
+docker compose down
+```
 ## Special thanks
 I owe this thanks to https://www.youtube.com/devsuperior for teaching me the basics of Spring Boot framework and understanding the HTTP protocol and its responses, this is my first "big" project, and I hope I leveling up even more on Java ☕🚀
