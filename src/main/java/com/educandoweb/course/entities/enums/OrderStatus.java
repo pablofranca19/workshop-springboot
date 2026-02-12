@@ -16,7 +16,7 @@ public enum OrderStatus {
 	
 	public int getCode() {
 		return code;
-	}
+	}	
 	
 	public static OrderStatus valueOf(Integer orderStatus) {
 		for (OrderStatus value : OrderStatus.values()) {
